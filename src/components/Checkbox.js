@@ -1,31 +1,29 @@
 import React from "react";
 
-const Checkbox = () => {
-    const [checkedOne, setCheckedOne] = React.useState(false);
-    const [checkedTwo, setCheckedTwo] = React.useState(false);
-  
-    const handleChangeOne = () => {
-      setCheckedOne(!checkedOne);
-    };
-  
-    const handleChangeTwo = () => {
-      setCheckedTwo(!checkedTwo);
-    };
-  
-    return (
-      <div>
-        <Checkbox
-          label="Value 1"
-          value={checkedOne}
-          onChange={handleChangeOne}
-        />
-        <Checkbox
-          label="Value 2"
-          value={checkedTwo}
-          onChange={handleChangeTwo}
-        />
-      </div>
-    );
-  };
-  
-  export default Checkbox;
+function Checkbox(props) {
+  return (
+    <div>
+      <input
+        type={props.type}
+        className={props.className}
+        name={props.name}
+        value={props.value}
+        onChange={props.onChange}
+        checked={props.value}
+        placeholder={props.placeholder}
+      ></input>
+      <label htmlFor={props.name}> {props.label} </label>
+    </div>
+  );
+}
+export default Checkbox;
+
+
+
+
+
+
+
+
+
+

@@ -2,6 +2,7 @@ import React from "react";
 import FormInput from "./InputField";
 import Button from "./Button";
 import MyTextArea from "./MyTextArea";
+import Checkbox from "./Checkbox";
 
 class LoginPage extends React.Component {
   state = {
@@ -10,7 +11,7 @@ class LoginPage extends React.Component {
       ifsc: "",
       email: "",
       phone: "",
-      address:"",
+      address: "",
     },
     errors: {},
     submitted: false,
@@ -22,21 +23,21 @@ class LoginPage extends React.Component {
     this.setState({ user });
   };
 
-//   handleTextArealInputChange = (event) => {
-//     const { user } = this.state;
-//     user[event.target.name] = event.target.value;
-//     this.setState({ user })
-//     //setValues({ ...values, textArea: event.target.value });
-//   };
+  //   handleTextArealInputChange = (event) => {
+  //     const { user } = this.state;
+  //     user[event.target.name] = event.target.value;
+  //     this.setState({ user })
+  //     setValues({ ...values, textArea: event.target.value });
+  //   };
 
   onSubmit = () => {
     const {
-      user: { custid, ifsc, email, phone,address },
+      user: { custid, ifsc, email, phone, address },
     } = this.state;
     let err = {};
 
     if (!custid) {
-      err.custid = "Enter your Cutumer ID!";
+      err.custid = "Enter your Custumer ID!";
     }
 
     if (!email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
@@ -51,10 +52,9 @@ class LoginPage extends React.Component {
       err.phone = "Phone number must be 10 digit";
     }
 
-    if (!address.length > 5) {
-        err.custid = "Enter your address";
-      }
-
+    if (address.length < 5) {
+      err.address = "Enter your address";
+    }
 
     this.setState({ errors: err }, () => {
       if (Object.getOwnPropertyNames(this.state.errors).length === 0) {
@@ -74,17 +74,19 @@ class LoginPage extends React.Component {
         <div className="card">
           <React.Fragment>
             {submitted ? (
-              <p>Submitted Successfully!<br/>Details of Customer ID: {custid} <br/>  <br/>
-              IFSC code: {ifsc} <br/>
-              Email: {email}<br/>
-              Contact number: {phone} <br/>
-              Address: {address}
+              <p>
+                Submitted Successfully!
+                <br />
+                Details of Customer ID: {custid} <br />
+                IFSC code: {ifsc} <br />
+                Email: {email}
+                <br />
+                Contact number: {phone} <br />
+                Address: {address}
               </p>
             ) : (
               <React.Fragment>
-                <div className={"card-header text-center"}>
-                  PNB Bank Details
-                </div>
+                <div className={"card-header text-center"}>J&Bank Details</div>
                 <div className="card-body">
                   <FormInput
                     label="Customer Id "
@@ -133,25 +135,39 @@ class LoginPage extends React.Component {
                     className="form-control"
                     required
                   />
-                    <MyTextArea
+                  <MyTextArea
                     type="text"
-                    name= "address"
+                    name="address"
                     label="Address"
                     value={address}
                     error={errors.address}
                     className="form-control"
                     onChange={this.handleChange}
                     placeholder="Enter address"
-
                     required
-                    />
+                  />
+                  <h7> Cards </h7>
+                  <Checkbox
+                    type="checkbox"
+                    name="checkbox"
+                    className="checkbox-example"
+                    onChange={this.handleChange}
+                    label="Debit"
+                  />
+                  <Checkbox
+                    type="checkbox"
+                    name="checkbox"
+                    className="checkbox-example"
+                    onChange={this.handleChange}
+                    label="Credit"
+                  />
+
                   <Button
                     type="submit"
                     label="Submit"
                     className="btn btn-primary"
                     handleClick={this.onSubmit}
                   />
-                  
                 </div>
               </React.Fragment>
             )}
