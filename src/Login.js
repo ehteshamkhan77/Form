@@ -52,7 +52,7 @@ class LoginPage extends React.Component {
       err.phone = "Phone number must be 10 digit";
     }
 
-    if (!address.length > 5) {
+    if (address.length < 5) {
       err.address = "Enter your address";
     }
 
